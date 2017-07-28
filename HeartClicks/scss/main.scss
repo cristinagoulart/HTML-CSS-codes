@@ -1,0 +1,310 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html, 
+body, {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.stopper {
+  overflow: hidden;
+}
+
+ul, 
+li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+h1, h2 {
+  text-align: center;
+  margin: .3em;
+}
+
+
+//color map
+$colors:(
+    'o': transparent,
+    'r': red,
+    'x': blue
+);
+
+
+//size of the pixels
+$size: 20px !default;
+
+$pixel-art:(
+    heart:(
+        (o o r r o r r o o)
+        (o r r r r r r r o)
+        (o r r r r r r r o)
+        (o o r r r r r o o)
+        (o o o r r r o o o)
+        (o o o o r o o o o)
+    )
+);
+
+$pixel-art2:(
+    heart:(
+        (o o x x o x x o o)
+        (o x x x x x x x o)
+        (o x x x x x x x o)
+        (o o x x x x x o o)
+        (o o o x x x o o o)
+        (o o o o x o o o o)
+    )
+);
+
+//funcion to read the atris and pixelize it
+@function pixelize($matrix, $size){
+    $sh: '';
+    $rows: length($matrix);
+
+    @for $row from 1 through $rows{
+        $row-num: nth($matrix, $row);
+
+        @for $col from 1 through length($row-num){
+            $dot: nth($row-num, $col);
+
+            $sh: $sh + ($size*$col) + ' ' + ($size*$row) + ' ' + map-get($colors, $dot);
+            
+            @if not ($col == length($row-num) and $row == $rows){
+                $sh: $sh + ',';
+            }
+        }
+    }
+    @return unquote($sh);
+}
+
+//Mixin to style each item
+@mixin style-item($matrix, $size){
+    width:($size * length(nth($matrix,1)));
+    height:($size * length($matrix));
+
+    &:after{
+    content: '';
+    position: absolute;
+    top: (-$size);
+    left: (-$size);
+    width: $size;
+    height: $size;
+    box-shadow: pixelize($matrix,$size);
+  }
+
+
+}
+
+.pixelized--heart{
+    // outline: 1px solid;
+    position: relative;
+    height: $size*length(map-get($pixel-art, heart));
+    width: $size*length(nth(map-get($pixel-art, heart),1));
+
+    &::after{
+        top: -$size;
+        left: -$size;
+        height: $size;
+        width: $size;
+        content: '';
+        position: absolute;
+        box-shadow: pixelize(map-get($pixel-art, heart),$size);
+    }
+
+}
+
+.pixelized--heart2{
+    // outline: 1px solid;
+    position: relative;
+    height: $size*length(map-get($pixel-art2, heart));
+    width: $size*length(nth(map-get($pixel-art2, heart),1));
+
+    &::after{
+        top: -$size;
+        left: -$size;
+        height: $size;
+        width: $size;
+        content: '';
+        position: absolute;
+        box-shadow: pixelize(map-get($pixel-art2, heart),$size);
+    }
+
+}
+
+
+
+.click-area{
+    position: absolute;
+    display: block;
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    //  outline: 1px solid;
+    // top: 100px;
+    // left: -5px;
+    //  cursor: grab;
+    cursor: pointer;
+    cursor: hand;
+    cursor: -webkit-grab;
+    cursor: grab;
+
+    appearance: none;
+
+    // &:checked{
+    //     background: green;
+    // }
+
+
+}
+
+.game-area{
+    counter-reset: game;
+    
+
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    grid-gap: 20px;
+    width: 70vw;
+    height: 80vh;
+    margin: 0 auto;
+    max-width: 800px;
+
+    li{
+        background: dodgerblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+// .shield{
+//     background: navy;
+//     display: block;
+//     width: 100%;
+//     height: 60%;
+//     position: absolute;
+//     bottom: 0;
+//     left: 0;
+//     z-index: 4;
+
+// }
+
+.click-area:checked{
+    counter-increment: game;
+    animation: none;
+    pointer-events: none;
+
+    + .character{
+        animation: none;
+        filter: grayscale(1);
+
+    }
+
+    &::after {
+    display: block;
+    margin-top: -25px;
+    animation: rainbow 1s infinite;
+  } 
+}
+
+.click-area {
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
+@keyframes rainbow {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to{
+    filter: hue-rotate(360deg);
+  }
+}
+
+.score::after{
+    content: counter(game)
+}
+
+
+
+
+@keyframes move {
+    0%{
+        transform: translateY(-25px)
+    }
+    50%{
+        transform: translateY(-25px)
+    }
+}
+
+.character,
+.click-area{
+    animation: move 0.5s infinite ease-in-out alternate forwards;
+}
+
+@for $i  from 1 through 9{
+    $speed: random()*2.5 + 's';
+
+    li:nth-child(#{$i}){
+        .character,
+        .click-area{
+            animation-duration: #{$speed};
+        }
+    }
+}
+
+// length of the game
+$game-length: 8s !default;
+
+.stopper{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 6;
+    background: darkcyan;
+    text-align: center;
+    font-size: 2em;
+    transform: translateY(-100vh);
+    animation: stopper 0.5s forwards;
+    animation-delay: $game-length;
+
+}
+
+@keyframes stopper {
+    from{
+        transform: translateY(-100vh);
+
+    }
+    to{
+        transform: translateY(0vh);
+
+    }
+}
+
+@keyframes score {
+    from{
+        transform: translateY(0vh);
+
+    }
+    to{
+        transform: translateY(-50vh);
+
+    }
+}
+
+h2{
+    z-index: 10;
+    position: relative;
+    animation: score 0.5s forwards;
+    animation-delay: $game-length +0.25s;
+
+}
+

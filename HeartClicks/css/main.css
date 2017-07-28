@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box; }
+
+html,
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0; }
+
+.stopper {
+  overflow: hidden; }
+
+ul,
+li {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; }
+
+h1, h2 {
+  text-align: center;
+  margin: .3em; }
+
+.pixelized--heart {
+  position: relative;
+  height: 120px;
+  width: 180px; }
+  .pixelized--heart::after {
+    top: -20px;
+    left: -20px;
+    height: 20px;
+    width: 20px;
+    content: '';
+    position: absolute;
+    box-shadow: 20px 20px transparent,40px 20px transparent,60px 20px red,80px 20px red,100px 20px transparent,120px 20px red,140px 20px red,160px 20px transparent,180px 20px transparent,20px 40px transparent,40px 40px red,60px 40px red,80px 40px red,100px 40px red,120px 40px red,140px 40px red,160px 40px red,180px 40px transparent,20px 60px transparent,40px 60px red,60px 60px red,80px 60px red,100px 60px red,120px 60px red,140px 60px red,160px 60px red,180px 60px transparent,20px 80px transparent,40px 80px transparent,60px 80px red,80px 80px red,100px 80px red,120px 80px red,140px 80px red,160px 80px transparent,180px 80px transparent,20px 100px transparent,40px 100px transparent,60px 100px transparent,80px 100px red,100px 100px red,120px 100px red,140px 100px transparent,160px 100px transparent,180px 100px transparent,20px 120px transparent,40px 120px transparent,60px 120px transparent,80px 120px transparent,100px 120px red,120px 120px transparent,140px 120px transparent,160px 120px transparent,180px 120px transparent; }
+
+.pixelized--heart2 {
+  position: relative;
+  height: 120px;
+  width: 180px; }
+  .pixelized--heart2::after {
+    top: -20px;
+    left: -20px;
+    height: 20px;
+    width: 20px;
+    content: '';
+    position: absolute;
+    box-shadow: 20px 20px transparent,40px 20px transparent,60px 20px blue,80px 20px blue,100px 20px transparent,120px 20px blue,140px 20px blue,160px 20px transparent,180px 20px transparent,20px 40px transparent,40px 40px blue,60px 40px blue,80px 40px blue,100px 40px blue,120px 40px blue,140px 40px blue,160px 40px blue,180px 40px transparent,20px 60px transparent,40px 60px blue,60px 60px blue,80px 60px blue,100px 60px blue,120px 60px blue,140px 60px blue,160px 60px blue,180px 60px transparent,20px 80px transparent,40px 80px transparent,60px 80px blue,80px 80px blue,100px 80px blue,120px 80px blue,140px 80px blue,160px 80px transparent,180px 80px transparent,20px 100px transparent,40px 100px transparent,60px 100px transparent,80px 100px blue,100px 100px blue,120px 100px blue,140px 100px transparent,160px 100px transparent,180px 100px transparent,20px 120px transparent,40px 120px transparent,60px 120px transparent,80px 120px transparent,100px 120px blue,120px 120px transparent,140px 120px transparent,160px 120px transparent,180px 120px transparent; }
+
+.click-area {
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 40px;
+  z-index: 3;
+  cursor: pointer;
+  cursor: hand;
+  cursor: -webkit-grab;
+  cursor: grab;
+  appearance: none; }
+
+.game-area {
+  counter-reset: game;
+  display: grid;
+  grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 70vw;
+  height: 80vh;
+  margin: 0 auto;
+  max-width: 800px; }
+  .game-area li {
+    background: dodgerblue;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+
+.click-area:checked {
+  counter-increment: game;
+  animation: none;
+  pointer-events: none; }
+  .click-area:checked + .character {
+    animation: none;
+    filter: grayscale(1); }
+  .click-area:checked::after {
+    display: block;
+    margin-top: -25px;
+    animation: rainbow 1s infinite; }
+
+.click-area:focus, .click-area:active {
+  outline: none; }
+
+@keyframes rainbow {
+  from {
+    filter: hue-rotate(0deg); }
+  to {
+    filter: hue-rotate(360deg); } }
+.score::after {
+  content: counter(game); }
+
+@keyframes move {
+  0% {
+    transform: translateY(-25px); }
+  50% {
+    transform: translateY(-25px); } }
+.character,
+.click-area {
+  animation: move 0.5s infinite ease-in-out alternate forwards; }
+
+li:nth-child(1) .character,
+li:nth-child(1) .click-area {
+  animation-duration: 1.55265s; }
+
+li:nth-child(2) .character,
+li:nth-child(2) .click-area {
+  animation-duration: 0.04669s; }
+
+li:nth-child(3) .character,
+li:nth-child(3) .click-area {
+  animation-duration: 1.53353s; }
+
+li:nth-child(4) .character,
+li:nth-child(4) .click-area {
+  animation-duration: 2.30574s; }
+
+li:nth-child(5) .character,
+li:nth-child(5) .click-area {
+  animation-duration: 0.01033s; }
+
+li:nth-child(6) .character,
+li:nth-child(6) .click-area {
+  animation-duration: 1.0256s; }
+
+li:nth-child(7) .character,
+li:nth-child(7) .click-area {
+  animation-duration: 1.86277s; }
+
+li:nth-child(8) .character,
+li:nth-child(8) .click-area {
+  animation-duration: 1.38372s; }
+
+li:nth-child(9) .character,
+li:nth-child(9) .click-area {
+  animation-duration: 0.25603s; }
+
+.stopper {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  background: darkcyan;
+  text-align: center;
+  font-size: 2em;
+  transform: translateY(-100vh);
+  animation: stopper 0.5s forwards;
+  animation-delay: 8s; }
+
+@keyframes stopper {
+  from {
+    transform: translateY(-100vh); }
+  to {
+    transform: translateY(0vh); } }
+@keyframes score {
+  from {
+    transform: translateY(0vh); }
+  to {
+    transform: translateY(-50vh); } }
+h2 {
+  z-index: 10;
+  position: relative;
+  animation: score 0.5s forwards;
+  animation-delay: 8.25s; }
+
+/*# sourceMappingURL=main.css.map */
