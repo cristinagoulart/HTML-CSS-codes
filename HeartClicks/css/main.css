@@ -21,6 +21,19 @@ h1, h2 {
   text-align: center;
   margin: .3em; }
 
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px; }
+
 .pixelized--heart {
   position: relative;
   height: 120px;
@@ -108,39 +121,39 @@ h1, h2 {
 
 li:nth-child(1) .character,
 li:nth-child(1) .click-area {
-  animation-duration: 1.55265s; }
+  animation-duration: 0.00273s; }
 
 li:nth-child(2) .character,
 li:nth-child(2) .click-area {
-  animation-duration: 0.04669s; }
+  animation-duration: 1.48205s; }
 
 li:nth-child(3) .character,
 li:nth-child(3) .click-area {
-  animation-duration: 1.53353s; }
+  animation-duration: 1.46114s; }
 
 li:nth-child(4) .character,
 li:nth-child(4) .click-area {
-  animation-duration: 2.30574s; }
+  animation-duration: 1.19989s; }
 
 li:nth-child(5) .character,
 li:nth-child(5) .click-area {
-  animation-duration: 0.01033s; }
+  animation-duration: 1.73996s; }
 
 li:nth-child(6) .character,
 li:nth-child(6) .click-area {
-  animation-duration: 1.0256s; }
+  animation-duration: 0.53293s; }
 
 li:nth-child(7) .character,
 li:nth-child(7) .click-area {
-  animation-duration: 1.86277s; }
+  animation-duration: 1.52477s; }
 
 li:nth-child(8) .character,
 li:nth-child(8) .click-area {
-  animation-duration: 1.38372s; }
+  animation-duration: 0.40069s; }
 
 li:nth-child(9) .character,
 li:nth-child(9) .click-area {
-  animation-duration: 0.25603s; }
+  animation-duration: 1.84336s; }
 
 .stopper {
   width: 100vw;
